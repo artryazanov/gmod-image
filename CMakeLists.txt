@@ -12,5 +12,4 @@ set(CMAKE_RUNTIME_LIBRARY_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/release)
 
 
 add_subdirectory(include)
-add_subdirectory(examples/HelloWorld)
-add_subdirectory(examples/MetaTable)
+add_subdirectory(src/image)
