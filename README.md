@@ -1,4 +1,4 @@
-gmod-module-base
+gmod-image
 ================
 
 Technically everything you need is in include.

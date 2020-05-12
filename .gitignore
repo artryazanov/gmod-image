@@ -1,3 +1,4 @@
 .idea
-cmake-build-debug
+cmake-build-*
+include/source-sdk-2013
 src_init
