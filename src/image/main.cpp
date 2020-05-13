@@ -15,7 +15,7 @@
 //#include "macros.h"
 
 // initialize the Garry's Mod module
-//GMOD_MODULE( Init, Shutdown );
+GMOD_MODULE( Init, Shutdown );
 
 // engine interfaces
 vgui::ISurface* g_pSurface = nullptr;
@@ -27,11 +27,14 @@ IMaterialSystem* materialsystem = nullptr;
 LUA_FUNCTION( CreateProceduralTexture )
 {
     // push a new procedural texture id
-    LUA->PushNumber( static_cast<float>( g_pSurface->CreateNewTextureID( true ) ) );
+    Lua()->Push( static_cast<float>( g_pSurface->CreateNewTextureID( true ) ) );
     return 1;
 }
 
-GMOD_MODULE_OPEN()
+/*------------------------------------
+	Init()
+------------------------------------*/
+int Init( lua_State* L )
 {
     // get material system
     auto materialSystemFactory = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA("MaterialSystem.dll"), "CreateInterface");
@@ -55,10 +58,13 @@ GMOD_MODULE_OPEN()
     LUA->SetTable( -3 ); // -2
     LUA->Pop(); // -1
 
-	return 0;
+    return 0;
 }
 
-GMOD_MODULE_CLOSE()
+/*------------------------------------
+	Shutdown()
+------------------------------------*/
+int Shutdown( lua_State* L )
 {
-	return 0;
+    return 0;
 }
