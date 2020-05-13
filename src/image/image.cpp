@@ -313,7 +313,7 @@ int CImage::LuaNewImage( lua_State* L )
 	// return a new writer
 	CImage* image = new CImage( width, height );
 	ILuaObject* metatable = Lua()->GetMetaTable( "CImage", TYPE_IMAGE );
-	//!!! Lua()->PushUserData( metatable, image );
+	Lua()->PushUserData( metatable, image, null );
 	SAFE_UNREF( metatable );
 
 	return 1;
@@ -342,38 +342,35 @@ int CImage::LuaDeleteImage( lua_State* L )
 /*------------------------------------
 	CImage::LuaSetPixel()
 ------------------------------------*/
-/*
 int CImage::LuaSetPixel( lua_State* L )
 {
-
 	Lua()->CheckType( 1, TYPE_IMAGE );
 	Lua()->CheckType( 2, GLua::TYPE_NUMBER );
 	Lua()->CheckType( 3, GLua::TYPE_NUMBER );
 	Lua()->CheckType( 4, GLua::TYPE_TABLE );
 
-	CImage* image = reinterpret_cast<CImage*>( Lua()->GetUserData( 1 ) );
+    auto* image = reinterpret_cast<CImage*>( Lua()->GetUserData( 1 ) );
 
-	int x = Lua()->GetInteger( 2 );
-	int y = Lua()->GetInteger( 3 );
-	ILuaObject* color = Lua()->GetObject( 4 );
+    int x = Lua()->GetInteger( 2 );
+    int y = Lua()->GetInteger( 3 );
+    ILuaObject* color = Lua()->GetObject2( 4 );
 
-	// write
-	image->SetPixel(
-		x, y,
-		Color(
-			color->GetMemberInt( "r", 255 ),
-			color->GetMemberInt( "g", 255 ),
-			color->GetMemberInt( "b", 255 ),
-			color->GetMemberInt( "a", 255 )
-		)
-	);
+    // write
+    image->SetPixel(
+        x, y,
+        Color(
+            color->GetMemberInt( "r", 255 ),
+            color->GetMemberInt( "g", 255 ),
+            color->GetMemberInt( "b", 255 ),
+            color->GetMemberInt( "a", 255 )
+        )
+    );
 
-	SAFE_UNREF( color );
+    SAFE_UNREF( color );
 
 	return 0;
 
 }
- */
 
 /*------------------------------------
 	CImage::LuaGetPixel()
@@ -389,15 +386,14 @@ int CImage::LuaGetPixel( lua_State* L )
 	int y = Lua()->GetInteger( 3 );
 
 	// read color
-	CImage* image = reinterpret_cast<CImage*>( Lua()->GetUserData( 1 ) );
-	Color& color =  image->GetPixel( x, y );
+	auto* image = reinterpret_cast<CImage*>( Lua()->GetUserData( 1 ) );
 
 	// return as a lua color
 	ILuaObject* obj = Lua()->GetNewTable();
-	obj->SetMember( "r", static_cast<float>( color.r() ) );
-	obj->SetMember( "g", static_cast<float>( color.g() ) );
-	obj->SetMember( "b", static_cast<float>( color.b() ) );
-	obj->SetMember( "a", static_cast<float>( color.a() ) );
+	obj->SetMember( "r", static_cast<float>( image->GetPixel( x, y ).r() ) );
+	obj->SetMember( "g", static_cast<float>( image->GetPixel( x, y ).g() ) );
+	obj->SetMember( "b", static_cast<float>( image->GetPixel( x, y ).b() ) );
+	obj->SetMember( "a", static_cast<float>( image->GetPixel( x, y ).a() ) );
 	obj->Push();
 	SAFE_UNREF( obj );
 
@@ -439,8 +435,8 @@ int CImage::LuaLoad( lua_State* L )
 	const char* filename = Lua()->GetString( 2 );
 
 	// load
-	//!!! if( !image->Load( filename ) )
-	//!!!	Lua()->Msg( "Please ensure the bitmap is Uncompressed and 16, 24, or 32 bit.\n" );
+	if( !image->Load( filename ) )
+		Lua()->ErrorNoHalt( "Please ensure the bitmap is Uncompressed and 16, 24, or 32 bit.\n" );
 
 	return 0;
 
@@ -459,8 +455,8 @@ int CImage::LuaSave( lua_State* L )
 	const char* filename = Lua()->GetString( 2 );
 
 	// load
-	//!!! if( !image->Save( filename ) )
-	//!!!	Lua()->Msg( "Unable to write bitmap to file.\n" );
+	if( !image->Save( filename ) )
+		Lua()->ErrorNoHalt( "Unable to write bitmap to file.\n" );
 
 	return 0;
 
@@ -483,7 +479,7 @@ int CImage::LuaCopyRT( lua_State* L )
 	int width = Lua()->GetInteger( 4 );
 	int height = Lua()->GetInteger( 5 );
 
-	CImage* image = reinterpret_cast<CImage*>( Lua()->GetUserData( 1 ) );
+	auto* image = reinterpret_cast<CImage*>( Lua()->GetUserData( 1 ) );
 	image->CopyRT( x, y, width, height );
 
 	return 0;

@@ -45,6 +45,7 @@ public:
 	void			NewGlobalTable( const char* name );
 
 	ILuaObject*		GetObject( int i = -1 );
+    ILuaObject*		GetObject2( int i = -1 );
 	const char*		GetString( int i = -1, unsigned int* iLen = nullptr );
 	int				GetInteger( int i = -1 );
 	double			GetNumber( int i = -1 );

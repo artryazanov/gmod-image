@@ -78,7 +78,7 @@ void ILuaInterface::PushUserData( ILuaObject* metaT, void * v, unsigned char typ
 	if (!metaT)
 		Error("CLuaInterface - No Metatable!\n");
 
-	UserData *data = (UserData*) m_pLua->NewUserdata( sizeof( UserData ) );
+	auto *data = (UserData*) m_pLua->NewUserdata( sizeof( UserData ) );
 	data->data = v;
 	data->type = type;
 
@@ -214,6 +214,13 @@ ILuaObject* ILuaInterface::GetObject( int i )
 	if(i != 0)
 		m_pLua->Push( i ); // +1
 	return new ILuaObject( m_pLua, m_pLua->ReferenceCreate() ); // -1
+}
+
+ILuaObject* ILuaInterface::GetObject2( int i )
+{
+    if(i != 0)
+        m_pLua->Push( i ); // +1
+    return new ILuaObject( m_pLua, m_pLua->ReferenceCreate() ); // -1
 }
 
 const char* ILuaInterface::GetString( int i, unsigned int* iLen )

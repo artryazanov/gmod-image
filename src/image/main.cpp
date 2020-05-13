@@ -74,9 +74,8 @@ int Init( lua_State* L )
         ILuaObject* methods = Lua()->GetNewTable();
         if( methods )
         {
-
             // functions
-            //methods->SetMember( "SetPixel", CImage::LuaSetPixel );
+            methods->SetMember( "SetPixel", CImage::LuaSetPixel );
             methods->SetMember( "GetPixel", CImage::LuaGetPixel );
             methods->SetMember( "Load", CImage::LuaLoad );
             methods->SetMember( "Save", CImage::LuaSave );
@@ -87,10 +86,8 @@ int Init( lua_State* L )
             // and the client to render them.
             if( Lua()->IsClient() )
             {
-
                 methods->SetMember( "Commit", CImage::LuaCommit );
                 methods->SetMember( "CopyRT", CImage::LuaCopyRT );
-
             }
 
             metatable->SetMember( "__index", methods );
