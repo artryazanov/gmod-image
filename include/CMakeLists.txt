@@ -1,12 +1,10 @@
 set(SOURCES
-    GarrysMod/Lua/Interface.h
-    GarrysMod/Lua/LuaBase.h
-    GarrysMod/Lua/SourceCompat.h
-    GarrysMod/Lua/Types.h
-    GarrysMod/Lua/UserData.h
 	backwards_headers/ILuaInterface.h
+	backwards_headers/ILuaInterface.cpp
 	backwards_headers/ILuaModuleManager.h
+	backwards_headers/ILuaModuleManager.cpp
 	backwards_headers/ILuaObject.h
+	backwards_headers/ILuaObject.cpp
 	backwards_headers/ILuaTable.h
 	backwards_headers/LuaBase.h
 	backwards_headers/LuaInterface.h

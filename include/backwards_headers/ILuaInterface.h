@@ -1,8 +1,8 @@
 #ifndef ILUAINTERFACE_H
 #define ILUAINTERFACE_H
 
-#include <stdio.h>
-#include <stdarg.h>
+#include <cstdio>
+#include <cstdarg>
 
 #include "ILuaObject.h"
 #include "ILuaTable.h"
@@ -12,8 +12,8 @@ using namespace GarrysMod::Lua;
 class ILuaInterface
 {
 public:
-	ILuaInterface( lua_State* state );
-	~ILuaInterface( void );
+	explicit ILuaInterface( lua_State* state );
+	~ILuaInterface( );
 
 	lua_State*		GetLuaState();
 
@@ -45,7 +45,7 @@ public:
 	void			NewGlobalTable( const char* name );
 
 	ILuaObject*		GetObject( int i = -1 );
-	const char*		GetString( int i = -1, unsigned int* iLen = NULL );
+	const char*		GetString( int i = -1, unsigned int* iLen = nullptr );
 	int				GetInteger( int i = -1 );
 	double			GetNumber( int i = -1 );
 	double			GetDouble( int i = -1 );

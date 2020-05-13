@@ -472,3 +472,7 @@ bool ILuaInterface::IsClient()
 {
     return true;
 }
+
+ILuaObject *ILuaInterface::GetObjectA(int i) {
+    return nullptr;
+}
