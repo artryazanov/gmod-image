@@ -89,6 +89,8 @@ public:
 	ILuaObject*		GetMetaTable( const char* strName, int iType );
 	ILuaObject*		GetMetaTable( int i );
 
+    bool			IsClient();
+
 private:
 	lua_State*		m_pState;
 	ILuaBase*		m_pLua;

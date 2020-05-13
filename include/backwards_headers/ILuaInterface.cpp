@@ -467,3 +467,8 @@ ILuaObject* ILuaInterface::GetMetaTable( int i )
 	else
 		return NULL;
 }
+
+bool ILuaInterface::IsClient()
+{
+    return true;
+}

@@ -1,5 +1,5 @@
 set(SOURCES
-		image.cpp)
+		main.cpp)
 
 add_library(image SHARED ${SOURCES})
 target_link_libraries(image gmod-image)

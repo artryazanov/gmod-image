@@ -14,7 +14,7 @@ set(SOURCES
 	backwards_headers/UserData.h)
 
 add_library(gmod-image INTERFACE)
-target_include_directories(gmod-image INTERFACE ./ source-sdk-2013/mp/src/public)
+target_include_directories(gmod-image INTERFACE ./ source-sdk-2013/mp/src/public source-sdk-2013/mp/src/public/tier0 source-sdk-2013/mp/src/public/tier1)
 
 function(set_gmod_suffix_prefix library)
 	SET_TARGET_PROPERTIES(${library} PROPERTIES PREFIX "gmsv_")
