@@ -6,7 +6,7 @@
 #include "backwards_headers/ILuaModuleManager.h"
 
 // defines
-#define TYPE_IMAGE 14500
+#define TYPE_IMAGE Type::USERDATA
 
 /*------------------------------------
 	CImage
@@ -28,7 +28,7 @@ public:
 	bool Save( const char* filename );
 
 	// load rendertarget
-	void CopyRT( int x, int y, unsigned int width, unsigned int height );
+	void CopyRT( int x, int y, int width, int height );
 
 	// accessors
 	unsigned int GetWidth() { return m_Width; }

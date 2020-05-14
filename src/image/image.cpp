@@ -276,7 +276,7 @@ bool CImage::Save( const char* filename )
 /*------------------------------------
 	CImage::CopyRT()
 ------------------------------------*/
-void CImage::CopyRT( int x, int y, unsigned int width, unsigned int height )
+void CImage::CopyRT( int x, int y, int width, int height )
 {
 
 	m_Width = width;
@@ -291,6 +291,7 @@ void CImage::CopyRT( int x, int y, unsigned int width, unsigned int height )
 
 	// read
 	IMatRenderContext* context = materialsystem->GetRenderContext();
+	/** @todo Fix this command, failed when called in GMod */
 	context->ReadPixels( x, y, width, height, m_pBits, IMAGE_FORMAT_RGBA8888 );
 	SAFE_RELEASE( context );
 
@@ -311,9 +312,9 @@ int CImage::LuaNewImage( lua_State* L )
 	int height = Lua()->GetInteger( 2 );
 
 	// return a new writer
-	CImage* image = new CImage( width, height );
+	auto* image = new CImage( width, height );
 	ILuaObject* metatable = Lua()->GetMetaTable( "CImage", TYPE_IMAGE );
-	Lua()->PushUserData( metatable, image, null );
+	Lua()->PushUserData( metatable, image, TYPE_IMAGE );
 	SAFE_UNREF( metatable );
 
 	return 1;
